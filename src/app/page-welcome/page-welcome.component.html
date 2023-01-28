@@ -1,10 +1,36 @@
-<h1>Bienvenue dans la bataille navale !</h1>
-<p>Jeu développé par Lyloo BOULARD, Theo CLIQUOT, Antoine MEYER et Abdeljalil ZOGHLAMI.</p>
+<div class="page-welcome page-welcome-title">
+    <h1>
+        Welcome to our Naval Battle Project
+        <mat-icon>directions_boat</mat-icon>
+    </h1>
+    <p>Game developed by Lyloo BOULARD, Theo CLIQUOT, <a href="https://perso.isima.fr/~anmeyer2/" target="_blank">Antoine MEYER</a> and Abdeljalil ZOGHLAMI.</p>
+</div>
 
-<h2>Entre ton nom avant de jouer</h2>
-<input type="text" name="player-name" id="player-name">
+<div class="page-welcome page-welcome-enter-name">
+    <h2>Enter your name..</h2>
+    <input type="text" spellcheck="false" autocomplete="off" placeholder="Enter your name" maxlength="21" data-translate="placeholder">
+</div>
 
-<button>Rejoint une partie</button>
-<input type="number" name="id-game" id="id-game">
+<div class="page-welcome page-welcome-buttons">
+    <h2>..and dive into the game!</h2>
+    <button mat-button (click)="openDialogEnterNumGame()">
+        <mat-icon>group</mat-icon>
+        Join
+    </button>
+    <button mat-button routerLink="/game" routerLinkActive="active" >
+        <mat-icon>add</mat-icon>
+        Create
+    </button>
+</div>
 
-<button>Créé une partie</button>
+<div class="page-welcome page-welcome-informations">
+    <h2>About</h2>
+    <p>School: <a href="https://www.isima.fr/accueil-english/" target="_blank">Isima</a></p>
+    <p>Year: Second (aka ZZ2) 2022-2023</p>
+    <p>Academic subject: Web Services</p>
+    <p>GitHub:
+      <a href="https://github.com/antoinemeyer5/ZZ2_WebService_NavalBattleProject_Frontend" target="_blank">frontend</a>
+      &
+      <a href="" target="_blank">backend</a>
+    </p>
+</div>
