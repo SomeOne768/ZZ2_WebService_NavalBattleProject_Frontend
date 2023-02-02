@@ -8,19 +8,26 @@
 
 <div class="page-welcome page-welcome-enter-name">
     <h2>Enter your name..</h2>
-    <input type="text" spellcheck="false" autocomplete="off" placeholder="Enter your name" maxlength="21" data-translate="placeholder">
+    <input (keyup)="onKey_Name($event)" type="text" spellcheck="false" autocomplete="off" placeholder="Enter your name" maxlength="10" data-translate="placeholder">
+    <div *ngIf="enter_name_by_user == '' && (click_join == true || click_create == true)">
+        <p>⚠️ Enter a player name ⚠️</p>
+    </div>
 </div>
 
 <div class="page-welcome page-welcome-buttons">
     <h2>..and dive into the game!</h2>
-    <button mat-button (click)="openDialogEnterNumGame()">
+    <button mat-button (click)="clickJoin()">
         <mat-icon>group</mat-icon>
         Join
     </button>
-    <button mat-button routerLink="/game" routerLinkActive="active" >
+    <button mat-button (click)="clickCreate()"  >
         <mat-icon>add</mat-icon>
         Create
     </button>
+    <div *ngIf="enter_name_by_user != '' && click_join == true">
+        <input (keyup)="onKey_JoinCode($event)" type="int" placeholder="Enter your code (3 digits)" maxlength="3">
+        <button *ngIf="click_join_code_good" mat-button routerLink="/game" routerLinkActive="active">Go 🚀</button>
+    </div>
 </div>
 
 <div class="page-welcome page-welcome-informations">
