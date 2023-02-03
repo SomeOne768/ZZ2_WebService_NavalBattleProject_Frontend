@@ -1,0 +1,59 @@
+.page-pregame {
+    width: fit-content;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-pregame-menu {
+    background-color: #dbebff;
+}
+
+.page-pregame-mainContent {
+    display: flex;
+}
+
+.page-pregame-shipToPlace {
+    background-color: #dbdcff;
+    width: fit-content;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.page-pregame-fullShip {
+    background-color: #e0e0e0;
+    display: flex;
+    cursor: move;
+    width: fit-content;
+}
+
+.page-pregame-fullShip:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+
+.page-pregame-partOfShip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.page-pregame-yourGrid {
+    background-color: #90e0ef;
+}
+
+.page-pregame-oneTile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+}

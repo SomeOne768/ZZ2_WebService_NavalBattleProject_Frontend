@@ -1,0 +1,46 @@
+<div class="page-pregame page-pregame-menu">
+  <h2>Pregame: place your boats</h2>
+  <p> Map name: {{name}} </p>
+  <h3>ID GAME: XXX</h3>
+</div>
+
+<div class="page-pregame-mainContent">
+
+  <div class="page-pregame-shipToPlace">
+    <h2>Associated Ships</h2>
+    <div *ngFor="let ship of associatedShips">
+      <p>{{ship.name}}:</p>
+
+      <div class="page-pregame-fullShip"
+        (cdkDragStarted)="handleDragStart($event)"
+        (click)="handleClick($event)" cdkDrag
+      >
+        <div *ngFor="let item of createRange(ship.size);" class="page-pregame-partOfShip">
+          {{ship.id}}
+        </div>
+      </div>
+    
+    </div>
+  </div>
+  
+  <div class="page-pregame page-pregame-yourGrid">
+    <table>
+      <tr *ngFor="let row of grid; let i = index">
+        <td *ngFor="let col of row; let j = index" id="t{{i}}{{j}}">
+          <div [ngSwitch]="col" class="page-pregame-oneTile">
+            <p *ngSwitchCase="-3">⛔</p>
+            <p *ngSwitchCase="-2">💥</p>
+            <p *ngSwitchCase="-1">🌊</p>
+            <p *ngSwitchCase="0">🚢</p>
+            <p *ngSwitchDefault>*error*</p>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div class="page-pregame page-pregame-buttonValide">
+  <button mat-button disabled="true">Go ⭐</button>
+</div>

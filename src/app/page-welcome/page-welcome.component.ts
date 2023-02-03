@@ -56,7 +56,7 @@ export class PageWelcomeComponent implements OnInit {
     this.click_create = true;
     this.click_join = false;
     if(this.enter_name_by_user != ''){
-      this.router.navigate(['game']);
+      this.router.navigate(['pregame']);
     }
   }
 

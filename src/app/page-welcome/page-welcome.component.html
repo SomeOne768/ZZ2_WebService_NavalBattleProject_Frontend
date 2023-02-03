@@ -26,7 +26,7 @@
     </button>
     <div *ngIf="enter_name_by_user != '' && click_join == true">
         <input (keyup)="onKey_JoinCode($event)" type="int" placeholder="Enter your code (3 digits)" maxlength="3">
-        <button *ngIf="click_join_code_good" mat-button routerLink="/game" routerLinkActive="active">Go 🚀</button>
+        <button *ngIf="click_join_code_good" mat-button routerLink="/pregame" routerLinkActive="active">Go 🚀</button>
     </div>
 </div>
 

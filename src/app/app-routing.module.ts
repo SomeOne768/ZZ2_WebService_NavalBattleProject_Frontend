@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { PageWelcomeComponent } from './page-welcome/page-welcome.component';
-import { PageGameComponent } from './page-game/page-game.component';
+import { PagePregameComponent } from './page-pregame/page-pregame.component';
 
 const routes: Routes = [
   {
-    path: 'game',
-    component: PageGameComponent
+    path: 'pregame',
+    component: PagePregameComponent
   },
   {
     path: '',
