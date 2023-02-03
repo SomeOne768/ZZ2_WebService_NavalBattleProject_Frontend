@@ -24,6 +24,7 @@
   </div>
   
   <div class="page-pregame page-pregame-yourGrid">
+    <!--<table (mouseover)="getDivPosition($event)">-->
     <table>
       <tr *ngFor="let row of grid; let i = index">
         <td *ngFor="let col of row; let j = index" id="t{{i}}{{j}}">
@@ -39,7 +40,6 @@
     </table>
   </div>
 </div>
-
 
 <div class="page-pregame page-pregame-buttonValide">
   <button mat-button disabled="true">Go ⭐</button>

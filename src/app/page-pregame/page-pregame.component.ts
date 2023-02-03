@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ASSOCIATEDSHIPS, BODY, NAME } from '../mock-map';
 import { CdkDragStart } from '@angular/cdk/drag-drop';
 
@@ -22,7 +22,7 @@ export class PagePregameComponent implements OnInit {
     this.dragging = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   createRange(number: number){
     // return new Array(number);
@@ -36,9 +36,19 @@ export class PagePregameComponent implements OnInit {
 
   public handleClick(event: MouseEvent): void {
     if (this.dragging) {
+      
       this.dragging = false;
-      return
+
+      
+      console.log("lache!");
+      /*
+      [ ] recuperer le coin en haut a gauche du bateau gris
+      [ ] recuperer le coin en haut a gauche de la map bleu
+      [ ] faire le calcul pour voir si le bateau entier est dans la grille
+      [ ] remplacer les cases dans la map 
+      */
     }
+    //this.grid[5][5] = 0;
   }
 
 }
