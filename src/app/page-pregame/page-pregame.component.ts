@@ -110,6 +110,8 @@ export class PagePregameComponent implements AfterViewInit {
               for(let i=0; i < this.associatedShips[ship_id].size; i++){
                 this.grid[countOnY][countOnX + i] = ship_id;
               }
+              //on disabled le bateau pose 
+              this.associatedShips[ship_id].located = 1;
             }
           }  
         }
@@ -129,32 +131,13 @@ export class PagePregameComponent implements AfterViewInit {
               for(let i=0; i < this.associatedShips[ship_id].size; i++){
                 this.grid[countOnY + i][countOnX] = ship_id;
               }
+              //on disabled le bateau pose 
+              this.associatedShips[ship_id].located = 1;
             }
           }  
         }
-
-        /*
-        // on disabled le bateau pose 
-        this.ships.forEach((child) => {
-        
-        });
-        */
-
-        // rotation des bateaux par touche
-
-        // actualise les donnes en base de donnee
-        // TODO !
-
-
-        
-
       }
-
-
-
-   
     }
-
   }
 
 }

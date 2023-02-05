@@ -21,6 +21,11 @@
     padding-left: 5px;
 }
 
+.page-pregame-shipToPlace-help {
+    font-style: italic;
+    border-bottom: 1px solid black;
+}
+
 .page-pregame-fullShip-hori {
     background-color: #e0e0e0;
     display: flex;

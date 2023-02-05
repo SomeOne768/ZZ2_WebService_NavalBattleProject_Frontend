@@ -5,5 +5,6 @@ export interface Ship {
     orientation: number,
     hookX: number,
     hookY: number,
-    lifePoint: number 
+    lifePoint: number,
+    located: number
 }
