@@ -7,6 +7,11 @@ import { ASSOCIATEDSHIPS, BODY, NAME } from '../mock-map';
   styleUrls: ['./page-pregame.component.css']
 })
 
+// todo :
+// [ ] fix display block, flex qui move le menu sur le bord gauche
+// [ ] faire le bouton pour reset la grille de jeu
+// [ ] faire que si tous les bateaux sont poses on peut lancer la partie
+
 export class PagePregameComponent implements AfterViewInit {
 
   @ViewChildren('ships') ships: QueryList<ElementRef>;
