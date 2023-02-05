@@ -21,9 +21,16 @@
     padding-left: 5px;
 }
 
-.page-pregame-fullShip {
+.page-pregame-fullShip-hori {
     background-color: #e0e0e0;
     display: flex;
+    cursor: move;
+    width: fit-content;
+}
+
+.page-pregame-fullShip-vert {
+    background-color: #e0e0e0;
+    display: block;
     cursor: move;
     width: fit-content;
 }

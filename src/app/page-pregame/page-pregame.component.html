@@ -13,8 +13,8 @@
 
       <div #ships
         id="{{ship.id}}"
-        class="page-pregame-fullShip"
-        (cdkDragStarted)="handleDragStart($event)"
+        [ngClass]="(ship.orientation == 0) ? 'page-pregame-fullShip-hori': 'page-pregame-fullShip-vert'"
+        (cdkDragStarted)="handleDragStart($event, ship.id)"
         (click)="handleClick($event, ship.id)" cdkDrag
       >
         <div *ngFor="let item of createRange(ship.size);" class="page-pregame-partOfShip">

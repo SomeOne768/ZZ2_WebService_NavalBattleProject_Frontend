@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, QueryList, AfterViewInit, ViewChildren } from '@angular/core';
+import { Component, ViewChild, ElementRef, QueryList, AfterViewInit, ViewChildren, HostListener } from '@angular/core';
 import { ASSOCIATEDSHIPS, BODY, NAME } from '../mock-map';
 
 @Component({
@@ -10,7 +10,6 @@ import { ASSOCIATEDSHIPS, BODY, NAME } from '../mock-map';
 export class PagePregameComponent implements AfterViewInit {
 
   @ViewChildren('ships') ships: QueryList<ElementRef>;
-  currentShip = {x: -1, y: -1, rotation: 0};
 
   grid = BODY;
   @ViewChild('gridDisplay') gridDisplay: ElementRef;
@@ -21,9 +20,11 @@ export class PagePregameComponent implements AfterViewInit {
   associatedShips = ASSOCIATEDSHIPS;
 
   public dragging: boolean;
+  public current_ship_id: number;
 
   constructor() {
     this.dragging = false;
+    this.current_ship_id = -1;
   }
 
   ngAfterViewInit() {
@@ -36,12 +37,30 @@ export class PagePregameComponent implements AfterViewInit {
       .map((n, index) => index + 1);
   }
 
-  public handleDragStart(event: any): void {
+  public handleDragStart(event: any, shipId: number): void {
     this.dragging = true;
+    this.current_ship_id = shipId;
+  }
+
+  // mise a jour de l'orientation du bateau dans la BDD
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if(event.key == 'r' && this.dragging == true){
+      console.log(event.key, this.current_ship_id);
+      if(this.associatedShips[this.current_ship_id].orientation == 0){
+        // verticale
+        this.associatedShips[this.current_ship_id].orientation = 1;
+        
+      }else {
+        // horizontale
+        this.associatedShips[this.current_ship_id].orientation = 0;
+      }
+    }
   }
 
   public handleClick(event: MouseEvent, ship_id: number): void {
-
+    // actualise
+    this.current_ship_id = ship_id;
     // actualise la position de la grille affichee
     this.gridDisplayPosition.x = this.gridDisplay.nativeElement.getBoundingClientRect().left; 
     this.gridDisplayPosition.y = this.gridDisplay.nativeElement.getBoundingClientRect().top;
@@ -56,24 +75,24 @@ export class PagePregameComponent implements AfterViewInit {
         // chope le bateau avec le bon id (celui qu'on clique)
         if(ship_id == child.nativeElement.id){
           // actualise le bateau courant
-          this.currentShip.x = child.nativeElement.getBoundingClientRect().left;
-          this.currentShip.y = child.nativeElement.getBoundingClientRect().top;
+          this.associatedShips[ship_id].hookX = child.nativeElement.getBoundingClientRect().left;
+          this.associatedShips[ship_id].hookY = child.nativeElement.getBoundingClientRect().top;
         }
       });
       // on regarde si le coin en haut a gauche du bateau est dans la map
       if(
-        this.currentShip.x > this.gridDisplayPosition.x 
-        && this.currentShip.x < this.gridDisplayPosition.x + this.gridDisplayPosition.w
-        && this.currentShip.y > this.gridDisplayPosition.y
-        && this.currentShip.y < this.gridDisplayPosition.y + this.gridDisplayPosition.h
+        this.associatedShips[ship_id].hookX > this.gridDisplayPosition.x 
+        && this.associatedShips[ship_id].hookX < this.gridDisplayPosition.x + this.gridDisplayPosition.w
+        && this.associatedShips[ship_id].hookY > this.gridDisplayPosition.y
+        && this.associatedShips[ship_id].hookY < this.gridDisplayPosition.y + this.gridDisplayPosition.h
       ){
         // bateau lache dans la map
         // calcul pour savoir quelles cases de la map on change
         let countOnX = 0;
         let countOnY = 0;
         // distance entre bateau est bord
-        countOnX = Math.ceil((this.currentShip.x - this.gridDisplayPosition.x)/56)-1; // 52 = largeur case (50px) + border de chaque cote (1px par cote) + ecart entre 2 cases (2.44px)
-        countOnY = Math.ceil((this.currentShip.y - this.gridDisplayPosition.y)/56)-1;
+        countOnX = Math.ceil((this.associatedShips[ship_id].hookX - this.gridDisplayPosition.x)/56)-1; // 52 = largeur case (50px) + border de chaque cote (1px par cote) + ecart entre 2 cases (2.44px)
+        countOnY = Math.ceil((this.associatedShips[ship_id].hookY - this.gridDisplayPosition.y)/56)-1;
         //mettre le bateau dans la grille
         // horizontale
         if(this.associatedShips[ship_id].orientation == 0){
@@ -113,9 +132,6 @@ export class PagePregameComponent implements AfterViewInit {
             }
           }  
         }
-        // actualise les donnes en base de donnee
-        // TODO !
-
 
         /*
         // on disabled le bateau pose 
@@ -124,7 +140,13 @@ export class PagePregameComponent implements AfterViewInit {
         });
         */
 
-        // clean currentship et utiliser this.associated ship [id] !!
+        // rotation des bateaux par touche
+
+        // actualise les donnes en base de donnee
+        // TODO !
+
+
+        
 
       }
 
