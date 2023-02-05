@@ -34,7 +34,7 @@ export const NAME: string = "Map number";
 
 export const ASSOCIATEDSHIPS: Ship[] = [
     {
-        id: 0, name: "AircraftCarrier", size: 5, orientation: 0,
+        id: 0, name: "AircraftCarrier", size: 5, orientation: 1,
         hookX: -1, hookY: -1, lifePoint: 5
     },
     {

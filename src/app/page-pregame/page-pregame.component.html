@@ -11,9 +11,11 @@
     <div *ngFor="let ship of associatedShips">
       <p>{{ship.name}}:</p>
 
-      <div class="page-pregame-fullShip"
+      <div #ships
+        id="{{ship.id}}"
+        class="page-pregame-fullShip"
         (cdkDragStarted)="handleDragStart($event)"
-        (click)="handleClick($event)" cdkDrag
+        (click)="handleClick($event, ship.id)" cdkDrag
       >
         <div *ngFor="let item of createRange(ship.size);" class="page-pregame-partOfShip">
           {{ship.id}}
@@ -23,7 +25,7 @@
     </div>
   </div>
   
-  <div class="page-pregame page-pregame-yourGrid">
+  <div #gridDisplay class="page-pregame page-pregame-yourGrid">
     <!--<table (mouseover)="getDivPosition($event)">-->
     <table>
       <tr *ngFor="let row of grid; let i = index">
