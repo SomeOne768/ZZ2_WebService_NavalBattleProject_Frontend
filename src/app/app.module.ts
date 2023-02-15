@@ -11,12 +11,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PageGameComponent } from './page-game/page-game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageWelcomeComponent,
-    PagePregameComponent
+    PagePregameComponent,
+    PageGameComponent
   ],
   imports: [
     BrowserModule,

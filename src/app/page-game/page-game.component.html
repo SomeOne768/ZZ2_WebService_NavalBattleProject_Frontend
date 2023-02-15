@@ -1,0 +1,47 @@
+<p>
+    You are
+    <span style="font-weight: bold;">{{current_player.name}} ({{current_player.number}})</span>,
+    your grid is on the
+    <span style="font-weight: bold;">{{current_player.grid}}</span>
+</p>
+<p>
+    It's turn number
+    <span style="font-weight: bold;">{{turn.number}}</span>
+    and it's the turn of 
+    <span *ngIf="turn.turn_of == 1" style="font-weight: bold;">YOU !</span>
+    <span *ngIf="turn.turn_of == 2" style="font-weight: bold;">THE ENEMY !</span>
+    ({{turn.turn_of}})
+</p>
+
+<div class="page-game-mainDiv">
+
+    <div class="page-game-mapj1">
+        <table>
+            <tr *ngFor="let row of map_j1; let i = index">
+                <td *ngFor="let col of row; let j = index" id="t_mapj1_{{i}}{{j}}">
+                    <button disabled="true" [ngSwitch]="col" class="page-game-oneTile">
+                        <p *ngSwitchCase="-3">⛔</p>
+                        <p *ngSwitchCase="-2">💥</p>
+                        <p *ngSwitchCase="-1">🌊</p>
+                        <p *ngSwitchCase="0">[0]</p>
+                        <p *ngSwitchCase="1">[1]</p>
+                        <p *ngSwitchCase="2">[2]</p>
+                        <p *ngSwitchCase="3">[3]</p>
+                        <p *ngSwitchDefault>*error*</p>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-game-mapj2">
+        <table>
+            <tr *ngFor="let row of map_j2; let i = index">
+                <td *ngFor="let col of row; let j = index" id="t_maj2_{{i}}{{j}}">
+                    <button class="page-game-oneTile" (click)="clickMapJ2($event, i, j)">🌊</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
