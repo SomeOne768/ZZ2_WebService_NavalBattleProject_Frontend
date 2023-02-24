@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MAP_J1, MAP_J2 } from '../mock-game';
+import { PageGameService } from '../services/page-game.service';
 
 @Component({
   selector: 'app-page-game',
   templateUrl: './page-game.component.html',
-  styleUrls: ['./page-game.component.css']
+  styleUrls: ['./page-game.component.css'],
+  providers: [PageGameService]
 })
 export class PageGameComponent implements OnInit {
 
@@ -15,15 +17,23 @@ export class PageGameComponent implements OnInit {
 
   turn = { number: 0, turn_of: 1 }; // turn_of is 1 or 2
 
-  constructor() { }
+  constructor(
+    private gameService: PageGameService
+  ) { }
 
   ngOnInit(): void {
   }
 
   clickMapJ2(event: any, i: number, j: number) {
+    // appel au service
+    this.gameService.getResultTarget$(1, 1, i, j).subscribe(data => {
+      console.log(data);
+    });
+
     // check if the case is not already played
+    /*
     if (event.srcElement.innerHTML == "🌊") {
-      // 
+      //
       this.turn.number++;
       // change player
       if (this.turn.turn_of == 1) {
@@ -39,12 +49,13 @@ export class PageGameComponent implements OnInit {
           break;
         // part of a ship
         default:
-          event.srcElement.innerHTML = "💥[" + this.map_j2[i][j]  + "]";
+          event.srcElement.innerHTML = "💥[" + this.map_j2[i][j] + "]";
           break;
       }
       //console.log(event);
       //console.log("case en (" + i + ";" + j + ")");
     }
+    */
 
   }
 
