@@ -26,7 +26,10 @@ export class PageGameComponent implements OnInit {
 
   clickMapJ2(event: any, i: number, j: number) {
     // appel au service
-    this.gameService.getResultTarget$(1, 1, i, j).subscribe(data => {
+    /*this.gameService.getResultTarget$(1, 1, i, j).subscribe(data => {
+      console.log(data);
+    });*/
+    this.gameService.get_TEST_Player$().subscribe(data => {
       console.log(data);
     });
 
