@@ -30,11 +30,18 @@
       <div *ngIf="ship.located == 1">
         <p>Already located !</p>
       </div>
-    
     </div>
+
+    <div class="page-pregame-buttonReset">
+      <button mat-button (click)="reloadPage()">
+        <mat-icon>not_interested</mat-icon>
+        Reset
+      </button>
+    </div>
+
   </div>
   
-  <div #gridDisplay class="page-pregame page-pregame-yourGrid">
+  <div #gridDisplay class="page-pregame-yourGrid">
     <!--<table (mouseover)="getDivPosition($event)">-->
     <table>
       <tr *ngFor="let row of grid; let i = index">
@@ -43,7 +50,8 @@
             <p *ngSwitchCase="-3">⛔</p>
             <p *ngSwitchCase="-2">💥</p>
             <p *ngSwitchCase="-1">🌊</p>
-            <p *ngSwitchCase="0">🚢</p>
+            <p *ngSwitchCase="0">[0]</p>
+            <p *ngSwitchCase="1">[1]</p>
             <p *ngSwitchDefault>*error*</p>
           </div>
         </td>
@@ -53,5 +61,8 @@
 </div>
 
 <div class="page-pregame page-pregame-buttonValide">
-  <button mat-button disabled="true">Go ⭐</button>
+  <button mat-button routerLink="/game" disabled="{{go_disabled}}">
+    Go
+    <mat-icon>start</mat-icon>
+  </button>
 </div>

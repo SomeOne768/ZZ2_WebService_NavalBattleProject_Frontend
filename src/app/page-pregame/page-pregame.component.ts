@@ -9,8 +9,8 @@ import { ASSOCIATEDSHIPS, BODY, NAME } from '../mock-map';
 
 // todo :
 // [ ] fix display block, flex qui move le menu sur le bord gauche
-// [ ] faire le bouton pour reset la grille de jeu
-// [ ] faire que si tous les bateaux sont poses on peut lancer la partie
+// [x] faire le bouton pour reset la grille de jeu
+// [x] faire que si tous les bateaux sont poses on peut lancer la partie
 
 export class PagePregameComponent implements AfterViewInit {
 
@@ -26,10 +26,12 @@ export class PagePregameComponent implements AfterViewInit {
 
   public dragging: boolean;
   public current_ship_id: number;
+  public go_disabled: boolean;
 
   constructor() {
     this.dragging = false;
     this.current_ship_id = -1;
+    this.go_disabled = true;
   }
 
   ngAfterViewInit() {
@@ -37,9 +39,12 @@ export class PagePregameComponent implements AfterViewInit {
   }
 
   createRange(number: number){
-    // return new Array(number);
     return new Array(number).fill(0)
       .map((n, index) => index + 1);
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 
   public handleDragStart(event: any, shipId: number): void {
@@ -51,11 +56,9 @@ export class PagePregameComponent implements AfterViewInit {
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) { 
     if(event.key == 'r' && this.dragging == true){
-      console.log(event.key, this.current_ship_id);
       if(this.associatedShips[this.current_ship_id].orientation == 0){
         // verticale
         this.associatedShips[this.current_ship_id].orientation = 1;
-        
       }else {
         // horizontale
         this.associatedShips[this.current_ship_id].orientation = 0;
@@ -142,7 +145,21 @@ export class PagePregameComponent implements AfterViewInit {
           }  
         }
       }
+      // check si on a pose tous les bateaux
+      let sumShipLocated = 0;
+      this.associatedShips.forEach((child) => {
+        if(child.located == 1){
+          sumShipLocated = sumShipLocated + 1;
+        }
+      });
+      // si on a le meme nombre de bateau et de pose alors on peut go
+      if(this.associatedShips.length == sumShipLocated){
+        this.go_disabled = false;
+      }
     }
+    
+
+
   }
 
 }
