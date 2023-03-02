@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,14 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { PageGameComponent } from './page-game/page-game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageWelcomeComponent,
-    PagePregameComponent,
-    PageGameComponent
+    PagePregameComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +24,7 @@ import { PageGameComponent } from './page-game/page-game.component';
     MatButtonModule,
     MatIconModule,
     BrowserAnimationsModule,
-    DragDropModule,
-    HttpClientModule
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

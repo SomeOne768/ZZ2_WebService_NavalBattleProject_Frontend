@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { PageWelcomeService } from '../services/page-welcome.service'
-import { Game } from '../Game';
 
 @Component({
   selector: 'app-page-welcome',
@@ -19,7 +17,6 @@ export class PageWelcomeComponent implements OnInit {
   click_join_code_good: boolean = false;
 
   constructor(
-    private service: PageWelcomeService,
     private titleService: Title,
     private router: Router
   ) {
@@ -56,8 +53,6 @@ export class PageWelcomeComponent implements OnInit {
   }
 
   clickCreate(): void {
-     this.service.getGame(1)
-       .subscribe((data: Game) => { console.log(data) });
     this.click_create = true;
     this.click_join = false;
     if(this.enter_name_by_user != ''){
