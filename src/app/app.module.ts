@@ -28,7 +28,7 @@ import { PageGameComponent } from './page-game/page-game.component';
     MatIconModule,
     BrowserAnimationsModule,
     DragDropModule,
-    HttpClientModule
+    HttpClientModule,
     DragDropModule,
     HttpClientModule
   ],

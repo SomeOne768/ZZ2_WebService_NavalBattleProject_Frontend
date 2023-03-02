@@ -1,15 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MAP_J1, MAP_J2 } from '../mock-game';
-import { PageGameService } from '../services/page-game.service';
-
-import { AfterViewChecked, AfterViewInit, Component } from '@angular/core';
-import { __values } from 'tslib';
 
 @Component({
   selector: 'app-page-game',
   templateUrl: './page-game.component.html',
-  styleUrls: ['./page-game.component.css'],
-  providers: [PageGameService]
+  styleUrls: ['./page-game.component.css']
 })
 export class PageGameComponent implements OnInit {
 
@@ -20,30 +15,15 @@ export class PageGameComponent implements OnInit {
 
   turn = { number: 0, turn_of: 1 }; // turn_of is 1 or 2
 
-  constructor(
-    private gameService: PageGameService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
-  grid = BODY;
-  etat="A votre tour"
-  name = NAME;
-  valeur = true;
 
   clickMapJ2(event: any, i: number, j: number) {
-    // appel au service
-    /*this.gameService.getResultTarget$(1, 1, i, j).subscribe(data => {
-      console.log(data);
-    });*/
-    this.gameService.get_TEST_Player$().subscribe(data => {
-      console.log(data);
-    });
-
     // check if the case is not already played
-    /*
     if (event.srcElement.innerHTML == "🌊") {
-      //
+      // 
       this.turn.number++;
       // change player
       if (this.turn.turn_of == 1) {
@@ -65,10 +45,7 @@ export class PageGameComponent implements OnInit {
       //console.log(event);
       //console.log("case en (" + i + ";" + j + ")");
     }
-    */
 
-  target(x: number, y: number) {
-    this.valeur != this.valeur;
   }
 
 }
