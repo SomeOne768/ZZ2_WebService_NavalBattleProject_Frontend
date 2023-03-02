@@ -29,8 +29,11 @@ import { PageGameComponent } from './page-game/page-game.component';
     BrowserAnimationsModule,
     DragDropModule,
     HttpClientModule
+    DragDropModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

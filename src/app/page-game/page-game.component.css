@@ -1,29 +1,26 @@
-#board
-{
+
+.page-game-mainDiv {
     display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
 }
 
-.Grid
-{
-    border-block:dotted;
-    margin: 20px; 
+.page-game-mapj1 {
+    background-color: rgb(185, 185, 249);
+    margin-right: 5px;
 }
 
-#gridDisplay1
-{
-    background-color:darksalmon;
+.page-game-mapj2 {
+    background-color: rgb(255, 173, 173);
+    margin-left: 5px;
 }
 
-#gridDisplay2
-{
-    background-color:lightsalmon;
-}
-
-.page-pregame-oneTile {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
-  width: 50px;
-  height: 50px;
+.page-game-oneTile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
 }

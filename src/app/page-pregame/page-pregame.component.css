@@ -59,6 +59,7 @@
 
 .page-pregame-yourGrid {
     background-color: #90e0ef;
+    margin-left: 18px;
 }
 
 .page-pregame-oneTile {
@@ -68,4 +69,14 @@
     border: 1px solid black;
     width: 50px;
     height: 50px;
+}
+
+.page-pregame-buttonValide {
+    margin-top: 18px;
+}
+
+.page-pregame-buttonReset {
+    border-top: 1px solid black;
+    margin-top: 10px;
+    padding-top: 10px;
 }
