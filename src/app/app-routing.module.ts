@@ -17,7 +17,10 @@ const routes: Routes = [
   {
     path: '',
     component: PageWelcomeComponent
-  }
+  },
+  {
+    path: "game",
+    component: PageGameComponent  }
 ];
 
 @NgModule({

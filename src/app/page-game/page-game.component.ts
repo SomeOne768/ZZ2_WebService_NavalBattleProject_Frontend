@@ -39,7 +39,7 @@ export class PageGameComponent implements OnInit {
           break;
         // part of a ship
         default:
-          event.srcElement.innerHTML = "💥[" + this.map_j2[i][j]  + "]";
+          event.srcElement.innerHTML = "💥[" + this.map_j2[i][j] + "]";
           break;
       }
       //console.log(event);
