@@ -4,6 +4,8 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { PageWelcomeService } from '../services/page-welcome.service'
 import { Game } from '../Game';
+import { Observable } from 'rxjs';
+import { Player } from '../Player';
 
 
 @Component({
@@ -57,10 +59,18 @@ export class PageWelcomeComponent implements OnInit {
   }
 
   clickCreate(): void {
-     this.service.getGame(1)
-       .subscribe((data: Game) => { console.log(data) });
+    //  this.service.getGame(1)
+    //    .subscribe((data: Game) => { console.log(data) });
     this.click_create = true;
     this.click_join = false;
+
+    // debug:
+    // this.service.createGame()
+    //   .subscribe( (data:Game) => { console.log(data)});
+
+    this.service.createPlayer(this.enter_name_by_user)
+      .subscribe( (data:Player) => { console.log(data)});
+
     if(this.enter_name_by_user != ''){
       this.router.navigate(['pregame']);
     }
