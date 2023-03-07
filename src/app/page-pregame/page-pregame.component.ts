@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, QueryList, AfterViewInit, ViewChildren, HostListener } from '@angular/core';
 import { ASSOCIATEDSHIPS, BODY, NAME } from '../mock-map';
+import { PagePregameService } from '../services/page-pregame.service'
 
 @Component({
   selector: 'app-page-pregame',
@@ -13,6 +14,7 @@ import { ASSOCIATEDSHIPS, BODY, NAME } from '../mock-map';
 // [x] faire que si tous les bateaux sont poses on peut lancer la partie
 
 export class PagePregameComponent implements AfterViewInit {
+  sessionStorage: Storage = window.sessionStorage;
 
   @ViewChildren('ships') ships: QueryList<ElementRef>;
 
@@ -27,8 +29,10 @@ export class PagePregameComponent implements AfterViewInit {
   public dragging: boolean;
   public current_ship_id: number;
   public go_disabled: boolean;
+  
+  // public service: PagePregameService;
 
-  constructor() {
+  constructor(private service: PagePregameService) {
     this.dragging = false;
     this.current_ship_id = -1;
     this.go_disabled = true;
@@ -120,6 +124,18 @@ export class PagePregameComponent implements AfterViewInit {
               }
               //on disabled le bateau pose 
               this.associatedShips[ship_id].located = 1;
+              const gameId = this.sessionStorage.getItem('idGame');
+              const numPlayer = this.sessionStorage.getItem('numPlayer');
+              if(gameId && numPlayer)
+              {
+                this.service.putShip(parseInt(gameId), parseInt(numPlayer) , ship_id,this.associatedShips[ship_id].hookX , this.associatedShips[ship_id].hookY, 1)
+                .subscribe( r => {
+                  if(r!=null)
+                    console.log(r);
+                });
+              }
+              
+
             }
           }  
         }
@@ -141,6 +157,17 @@ export class PagePregameComponent implements AfterViewInit {
               }
               //on disabled le bateau pose 
               this.associatedShips[ship_id].located = 1;
+              const gameId = this.sessionStorage.getItem('idGame');
+              const numPlayer = this.sessionStorage.getItem('numPlayer');
+              if(gameId && numPlayer)
+              {
+                this.service.putShip(parseInt(gameId), parseInt(numPlayer) , ship_id,this.associatedShips[ship_id].hookX , this.associatedShips[ship_id].hookY, 1)
+                .subscribe( r => {
+                  if(r!=null)
+                    console.log(r);
+                });
+              }
+              
             }
           }  
         }
@@ -163,3 +190,5 @@ export class PagePregameComponent implements AfterViewInit {
   }
 
 }
+
+
