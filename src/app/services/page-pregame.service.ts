@@ -2,13 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-@Injectable()
+@Injectable({providedIn:'root'})
 export class PagePregameService {
 
     constructor(
         private http: HttpClient
     ) {}
 
+
+    public putShip(idGame: number, numPlayer: number, numShip: number, line: number, column: number, orientation: number)
+    {
+        const url = `${environment.apiUrl}/Games/${idGame}/PutShip/${numPlayer}`;
+        const body = {line, column, orientation};
+        return this.http.put(url, body);
+    }
     /*
     getPlayerMap$(numPlayer: string): Observable<Map> {
         const url = `${environment.apiUrl}/GetPlayerMap/${numPlayer}`;

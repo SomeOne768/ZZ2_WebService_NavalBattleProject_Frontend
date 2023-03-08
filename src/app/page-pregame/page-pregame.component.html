@@ -1,67 +1,61 @@
 <div class="page-pregame page-pregame-menu">
-  <h2>Pregame: place your boats</h2>
-  <p> Map name: {{name}} </p>
-  <h3>ID GAME: XXX</h3>
+    <h2>Pregame: place your boats</h2>
+    <p> Map name: {{ sessionStorage.getItem('numPlayer') }} </p>
+    <h3>ID GAME: {{ sessionStorage.getItem('idGame') }}</h3>
 </div>
 
 <div class="page-pregame-mainContent">
 
-  <div class="page-pregame-shipToPlace">
-    <h2>Associated Ships</h2>
-    <div class="page-pregame-shipToPlace-help">
-      <p>Catch the boats with the mouse</p>
-      <p>Press 'R' while holding them to rotate them</p>
-    </div>
-    <div *ngFor="let ship of associatedShips">
-      <p>{{ship.name}}:</p>
-
-      <div #ships
-        id="{{ship.id}}"
-        *ngIf="ship.located == 0"
-        [ngClass]="(ship.orientation == 0) ? 'page-pregame-fullShip-hori': 'page-pregame-fullShip-vert'"
-        (cdkDragStarted)="handleDragStart($event, ship.id)"
-        (click)="handleClick($event, ship.id)" cdkDrag
-      >
-        <div *ngFor="let item of createRange(ship.size);" class="page-pregame-partOfShip">
-          {{ship.id}}
+    <div class="page-pregame-shipToPlace">
+        <h2>Associated Ships</h2>
+        <div class="page-pregame-shipToPlace-help">
+            <p>Catch the boats with the mouse</p>
+            <p>Press 'R' while holding them to rotate them</p>
         </div>
-      </div>
+        <div *ngFor="let ship of associatedShips">
+            <p>{{ship.name}}:</p>
 
-      <div *ngIf="ship.located == 1">
-        <p>Already located !</p>
-      </div>
-    </div>
+            <div #ships id="{{ship.id}}" *ngIf="ship.located == 0" [ngClass]="(ship.orientation == 0) ? 'page-pregame-fullShip-hori': 'page-pregame-fullShip-vert'" (cdkDragStarted)="handleDragStart($event, ship.id)" (click)="handleClick($event, ship.id)" cdkDrag>
+                <div *ngFor="let item of createRange(ship.size);" class="page-pregame-partOfShip">
+                    {{ship.id}}
+                </div>
+            </div>
 
-    <div class="page-pregame-buttonReset">
-      <button mat-button (click)="reloadPage()">
+            <div *ngIf="ship.located == 1">
+                <p>Already located !</p>
+            </div>
+        </div>
+
+        <div class="page-pregame-buttonReset">
+            <button mat-button (click)="reloadPage()">
         <mat-icon>not_interested</mat-icon>
         Reset
       </button>
+        </div>
+
     </div>
 
-  </div>
-  
-  <div #gridDisplay class="page-pregame-yourGrid">
-    <!--<table (mouseover)="getDivPosition($event)">-->
-    <table>
-      <tr *ngFor="let row of grid; let i = index">
-        <td *ngFor="let col of row; let j = index" id="t{{i}}{{j}}">
-          <div [ngSwitch]="col" class="page-pregame-oneTile">
-            <p *ngSwitchCase="-3">⛔</p>
-            <p *ngSwitchCase="-2">💥</p>
-            <p *ngSwitchCase="-1">🌊</p>
-            <p *ngSwitchCase="0">[0]</p>
-            <p *ngSwitchCase="1">[1]</p>
-            <p *ngSwitchDefault>*error*</p>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
+    <div #gridDisplay class="page-pregame-yourGrid">
+        <!--<table (mouseover)="getDivPosition($event)">-->
+        <table>
+            <tr *ngFor="let row of grid; let i = index">
+                <td *ngFor="let col of row; let j = index" id="t{{i}}{{j}}">
+                    <div [ngSwitch]="col" class="page-pregame-oneTile">
+                        <p *ngSwitchCase="-3">⛔</p>
+                        <p *ngSwitchCase="-2">💥</p>
+                        <p *ngSwitchCase="-1">🌊</p>
+                        <p *ngSwitchCase="0">[0]</p>
+                        <p *ngSwitchCase="1">[1]</p>
+                        <p *ngSwitchDefault>*error*</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-<div class="page-pregame page-pregame-buttonValide">
-  <button mat-button routerLink="/game" disabled="{{go_disabled}}">
+    <div class="page-pregame page-pregame-buttonValide">
+        <button mat-button routerLink="/game" disabled="{{go_disabled}}">
     Go
     <mat-icon>start</mat-icon>
   </button>
-</div>
+    </div>
