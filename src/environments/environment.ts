@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:7152/api/GameArea'
+  apiUrlGame: 'https://localhost:7152/api/GameArea',
+  apiUrlPlayer: 'https://localhost:7152/api/Player'
 };
 
 /*

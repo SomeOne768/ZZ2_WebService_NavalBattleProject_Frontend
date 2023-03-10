@@ -1,10 +1,9 @@
 export interface Ship {
-    id: number,
-    name: string,
-    size: number,
-    orientation: number,
-    hookX: number,
-    hookY: number,
-    lifePoint: number,
-    located: number
+  id: number,
+  name: string,
+  length: number,
+  orientation: number,
+  position: [number, number],
+  located: number,
+  pv: number,
 }
