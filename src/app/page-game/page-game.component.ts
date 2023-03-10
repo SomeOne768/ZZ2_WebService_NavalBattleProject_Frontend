@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MAP_J1, MAP_J2 } from '../mock-game';
+import { PageGameService } from '../services/page-game.service'
+import { MAP } from '../mock-game';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-page-game',
@@ -8,44 +10,93 @@ import { MAP_J1, MAP_J2 } from '../mock-game';
 })
 export class PageGameComponent implements OnInit {
 
-  map_j1 = MAP_J1;
-  map_j2 = MAP_J2;
+  map_j1: number[][];
+  map_j2: number[][];
+  idGame: string;
+  numPlayer: string;
 
-  current_player = { name: "Antonio", grid: "left", number: 1 }; // current_player.number <=> turn.turn_of
+  sessionStorage: Storage = window.sessionStorage;
+  current_player = { name: sessionStorage.getItem('playerName'), grid: (sessionStorage.getItem('numPlayer') == "0") ? "left" : "right", number: sessionStorage.getItem('numPlayer') };
 
-  turn = { number: 0, turn_of: 1 }; // turn_of is 1 or 2
+  turn = { number: 0, turn_of: true };
 
-  constructor() { }
+  constructor(private service: PageGameService) {
+    this.idGame = sessionStorage.getItem("idGame")!;
+    this.numPlayer = sessionStorage.getItem("numPlayer")!;
+    this.service.getMap(parseInt(this.idGame), parseInt(this.numPlayer)).subscribe(
+      r => {
+        if (this.numPlayer === "0") {
+          this.map_j1 = r.body;
+          this.map_j2 = MAP;
+        }
+        else {
+          this.map_j1 = MAP;
+          this.map_j2 = r.body;
+        }
+      });
+  }
 
   ngOnInit(): void {
+    const source = interval(5000);
+    source.subscribe(() => {
+      this.service.getMap(parseInt(this.idGame), parseInt(this.numPlayer)).subscribe(
+        r => {
+          if (this.numPlayer === "0") {
+            this.map_j1 = r.body;
+            this.map_j2 = MAP;
+          }
+          else {
+            this.map_j1 = MAP;
+            this.map_j2 = r.body;
+          }
+        });
+      this.service.getGame(parseInt(this.idGame)).subscribe(r => this.turn.turn_of = r.tourA);
+    })
+    // Instruction
   }
 
   clickMapJ2(event: any, i: number, j: number) {
     // check if the case is not already played
-    if (event.srcElement.innerHTML == "🌊") {
-      // 
-      this.turn.number++;
-      // change player
-      if (this.turn.turn_of == 1) {
-        this.turn.turn_of = 2;
-      } else {
-        this.turn.turn_of = 1;
-      }
-      //check if click on a ship, on nothing or others
-      switch (this.map_j2[i][j]) {
-        // simple water
-        case -1:
-          event.srcElement.innerHTML = "⛔";
-          break;
-        // part of a ship
-        default:
-          event.srcElement.innerHTML = "💥[" + this.map_j2[i][j] + "]";
-          break;
-      }
-      //console.log(event);
-      //console.log("case en (" + i + ";" + j + ")");
+    if (this.numPlayer === '0') {
+      if (this.idGame !== null && this.numPlayer !== null)
+        this.service.getResultTarget(parseInt(this.idGame), parseInt(this.numPlayer), i, j).subscribe(r => {
+          switch (r) {
+            // simple water
+            case -3:
+              event.srcElement.innerHTML = "⛔";
+              break;
+            // part of a ship
+            default:
+              event.srcElement.innerHTML = "💥";
+              break;
+          }
+          this.turn.number++;
+          this.turn.turn_of = !this.turn.turn_of;
+        })
     }
+  }
 
+  clickMapJ1(event: any, i: number, j: number) {
+    // check if the case is not already played
+
+    if (this.numPlayer === '1') {
+      let result: number = 0;
+      if (this.idGame !== null && this.numPlayer !== null)
+        this.service.getResultTarget(parseInt(this.idGame), parseInt(this.numPlayer), i, j).subscribe(r => {
+          switch (r) {
+            // simple water
+            case -3:
+              event.srcElement.innerHTML = "⛔";
+              break;
+            // part of a ship
+            default:
+              event.srcElement.innerHTML = "💥";
+              break;
+          }
+          this.turn.number++;
+          this.turn.turn_of = !this.turn.turn_of;
+        })
+    }
   }
 
 }

@@ -8,6 +8,6 @@
     "\\src\\app\\page-welcome",
     "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\app.module.ts",
+  "SelectedNode": "\\src\\app\\page-game\\page-game.component.ts",
   "PreviewInSolutionExplorer": false
 }

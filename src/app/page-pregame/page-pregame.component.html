@@ -16,7 +16,7 @@
             <p>{{ship.name}}:</p>
 
             <div #ships id="{{ship.id}}" *ngIf="ship.located == 0" [ngClass]="(ship.orientation == 0) ? 'page-pregame-fullShip-hori': 'page-pregame-fullShip-vert'" (cdkDragStarted)="handleDragStart($event, ship.id)" (click)="handleClick($event, ship.id)" cdkDrag>
-                <div *ngFor="let item of createRange(ship.size);" class="page-pregame-partOfShip">
+                <div *ngFor="let item of createRange(ship.length);" class="page-pregame-partOfShip">
                     {{ship.id}}
                 </div>
             </div>
@@ -44,9 +44,7 @@
                         <p *ngSwitchCase="-3">⛔</p>
                         <p *ngSwitchCase="-2">💥</p>
                         <p *ngSwitchCase="-1">🌊</p>
-                        <p *ngSwitchCase="0">[0]</p>
-                        <p *ngSwitchCase="1">[1]</p>
-                        <p *ngSwitchDefault>*error*</p>
+                        <p *ngSwitchDefault>🛥️</p>
                     </div>
                 </td>
             </tr>

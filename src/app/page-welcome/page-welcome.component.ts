@@ -15,8 +15,9 @@ import { Player } from '../Player';
 })
 export class PageWelcomeComponent implements OnInit {
 
+  sessionStorage: Storage = window.sessionStorage;
   enter_name_by_user: string = "";
-  click_join:   boolean = false;
+  click_join: boolean = false;
   click_create: boolean = false;
   click_join_code: string = "";
   click_join_code_good: boolean = false;
@@ -31,37 +32,35 @@ export class PageWelcomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.enter_name_by_user = "";
-    this.click_join   = false;
+    this.click_join = false;
     this.click_create = false;
     this.click_join_code = "";
     this.click_join_code_good = false;
   }
 
-  onKey_Name(event: any){
+  onKey_Name(event: any) {
     this.enter_name_by_user = event.target.value;
     this.click_join = false;
     this.click_join_code_good = false;
   }
 
-  onKey_JoinCode(event: any){
+  onKey_JoinCode(event: any) {
     // Because of flemme => code is idGame
 
     this.click_join_code = event.target.value;
-    if(this.click_join_code.length > 0){
+    if (this.click_join_code.length > 0) {
       this.click_join_code_good = true;
-      
-      const idGame = this.click_join_code; 
-      this.service.getGame( parseInt(idGame) )
-        .subscribe( r => console.log(r) );
+      const playerId = sessionStorage.getItem('idPlayer');
+
+      const idGame = this.click_join_code;
+      if (playerId !== null)
+        this.service.JoinGame(parseInt(idGame), parseInt(playerId))
+          .subscribe(r => console.log(r));
+
       sessionStorage.setItem('idGame', idGame);
 
-      const playerId = sessionStorage.getItem('idPlayer');
-      // Associate user to a game
-      if (playerId) {
-        this.service.associatePlayer(parseInt(idGame), parseInt(playerId), 1)
-          .subscribe( r => { if(r!=null) console.log(r) });
-      }      
-    }else{
+
+    } else {
       this.click_join_code_good = false;
     }
   }
@@ -72,19 +71,20 @@ export class PageWelcomeComponent implements OnInit {
     this.click_create = false;
 
     // Create the player
-    if(this.enter_name_by_user != ''){
+    if (this.enter_name_by_user != '') {
 
       // Create the user
       this.service.createPlayer(this.enter_name_by_user)
-        .subscribe( (data:Player) => { 
-        // DEBUG
-        console.log(data)
-        const playerId = data?.id;
-        if (playerId) {
-          sessionStorage.setItem('idPlayer', playerId.toString());
-          sessionStorage.setItem('numPlayer', "1");
-        }
-      });
+        .subscribe((data: Player) => {
+          // DEBUG
+          console.log(data)
+          const playerId = data?.id;
+          const playerName = data?.name;
+          if (playerId && playerName) {
+            sessionStorage.setItem('idPlayer', playerId.toString());
+            sessionStorage.setItem('numPlayer', "1");
+          }
+        });
     }
   }
 
@@ -98,41 +98,38 @@ export class PageWelcomeComponent implements OnInit {
     // this.service.createGame()
     //   .subscribe( (data:Game) => { console.log(data)});
 
-    
 
-    if(this.enter_name_by_user != ''){
+
+    if (this.enter_name_by_user != '') {
 
       // Create the user
       this.service.createPlayer(this.enter_name_by_user)
-        .subscribe( (data:Player) => { 
-        // DEBUG
-        // console.log(data)
-        const playerId = data?.id;
-        if (playerId) {
-          sessionStorage.setItem('idPlayer', playerId.toString());
-          sessionStorage.setItem('numPlayer', "0");
-        }
-      });
+        .subscribe((data: Player) => {
+          // DEBUG
+          // console.log(data)
+          const playerId = data?.id;
+          if (playerId) {
+            sessionStorage.setItem('idPlayer', playerId.toString());
+            sessionStorage.setItem('numPlayer', "0");
+          }
+        });
 
       // Create the new game
-      this.service.createGame()
-      .subscribe( (data:Game) => { 
-        // DEBUG
-        // console.log(data) ;
-        const gameId = data?.idGame;
-        if (gameId) {
-          sessionStorage.setItem('idGame', gameId.toString());
-          const playerId = sessionStorage.getItem('idPlayer');
-          // Associate user to a game
-          if (playerId) {
-            this.service.associatePlayer(gameId, parseInt(playerId), 0)
-              .subscribe( r => { if(r!=null) console.log(r) });
-          }
-        }
-      });
+      const playerId = sessionStorage.getItem('idPlayer');
+      if (playerId !== null)
+        this.service.HostGame(parseInt(playerId))
+          .subscribe((data: Game) => {
+            // DEBUG
+            // console.log(data) ;
+            const gameId = data?.idGame;
+            if (gameId) {
+              sessionStorage.setItem('idGame', gameId.toString());
+              const playerId = sessionStorage.getItem('idPlayer');
+            }
+          });
       // Get the ID from session storage
       // DEBUG
-      
+
       /*
       const gameId = sessionStorage.getItem('idGame');
       console.log("Fin");
@@ -145,5 +142,5 @@ export class PageWelcomeComponent implements OnInit {
     }
   }
 
-  
+
 }
